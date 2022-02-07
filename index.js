@@ -114,8 +114,8 @@ function resolveStaticAssets(configuration) {
 }
 
 class TRTC {
-  static getName() {
-    return RNPhotoEditorSDK.getName()
+  static getStringTest() {
+    return RNPhotoEditorSDK.getStringTest()
   }
   /**
    * Modally present a photo editor.

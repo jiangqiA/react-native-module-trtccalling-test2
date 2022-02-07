@@ -52,11 +52,6 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
         IMGLY.authorize()
     }
 
-    @ReactMethod
-    fun getName() {
-        return "calling"
-    }
-
     override fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, intent: Intent?) {
         val data = try {
           intent?.let { EditorSDKResult(it) }
@@ -311,6 +306,12 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
             }
             return array
         }
+    }
+
+
+    @ReactMethod
+    fun getStringTest() {
+        return "calling"
     }
 
     override fun getName() = "RNPhotoEditorSDK"
