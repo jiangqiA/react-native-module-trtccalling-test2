@@ -1,0 +1,34 @@
+{
+  "name": "react-native-module-trtccalling",
+  "title": "React Native module for trtccalling test",
+  "version": "1.0.0",
+  "description": "A React Native module for trtccalling",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "",
+  "keywords": [
+    "react-native",
+    "trtc",
+    "calling",
+    "SDK",
+    "ios",
+    "android"
+  ],
+  "author": {
+    "name": "",
+    "email": ""
+  },
+  "license": "BSD-3-Clause",
+  "licenseFilename": "LICENSE.md",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react-native": ">=0.60.0 <1.0.x"
+  }
+}
