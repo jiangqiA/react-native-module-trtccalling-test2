@@ -113,7 +113,10 @@ function resolveStaticAssets(configuration) {
   }
 }
 
-class PESDK {
+class TRTC {
+  static getName() {
+    return RNPhotoEditorSDK.getName()
+  }
   /**
    * Modally present a photo editor.
    * @note EXIF meta data is only preserved in the edited image if and only if the source
