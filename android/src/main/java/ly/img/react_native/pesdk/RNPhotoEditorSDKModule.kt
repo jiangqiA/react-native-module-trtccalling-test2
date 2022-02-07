@@ -310,7 +310,7 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
 
     @ReactMethod
-    fun getStringTest() {
+    fun getStringTest():String {
         return "calling"
     }
 
