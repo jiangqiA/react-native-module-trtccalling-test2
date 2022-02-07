@@ -195,5 +195,5 @@ class PhotoEditorModal extends Component {
   }
 }
 
-export { PESDK, PhotoEditorModal };
+export { TRTC, PhotoEditorModal };
 export * from './configuration';
