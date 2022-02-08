@@ -132,10 +132,7 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     override fun onNewIntent(intent: Intent?) {
     }
 
-    @ReactMethod
-    fun theShow(message: String, duration: Int) {
-      Toast.makeText(reactContext, message, duration).show()
-    }
+
 
     @ReactMethod
     fun present(image: String?, config: ReadableMap?, serialization: String?, promise: Promise) {
