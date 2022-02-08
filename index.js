@@ -172,7 +172,7 @@ class PhotoEditorModal extends Component {
   static getDerivedStateFromProps = (props, state) => {
     const { image, configuration, serialization, onExport, onCancel, onError } = props;
     if (props.visible  && !state.visible) {
-      PESDK.openEditor(image, configuration, serialization).then(result => {
+      TRTC.openEditor(image, configuration, serialization).then(result => {
         if (result !== null) {
           onExport(result);
         } else {
