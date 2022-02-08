@@ -56,8 +56,7 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
     @ReactMethod
     fun theShow(message: String, duration: Int) {
-      val mToast = Toast(this)
-      mToast.makeText(reactContext, message, duration).show()
+      Toast.makeText(ReactApplicationContext, message, duration).show()
     }
 
     override fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, intent: Intent?) {
