@@ -116,8 +116,8 @@ function resolveStaticAssets(configuration) {
 class TRTC {
   static getStringName(text = '') {
     console.log('text:', text)
-    console.log('r-text:',RNPhotoEditorSDK.getStringName(text))
-    return RNPhotoEditorSDK.getStringName(text)
+    console.log('r-text:',RNPhotoEditorSDK.getString(text))
+    return RNPhotoEditorSDK.getString(text)
   }
   /**
    * Modally present a photo editor.

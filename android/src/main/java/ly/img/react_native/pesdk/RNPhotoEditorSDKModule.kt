@@ -133,6 +133,14 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     @ReactMethod
+    fun getString(text: String?): String {
+        val t = text
+        val str = "KOTLIN CALLING"
+
+        return str
+    }
+
+    @ReactMethod
     fun present(image: String?, config: ReadableMap?, serialization: String?, promise: Promise) {
         IMGLY.authorize()
 
@@ -307,14 +315,6 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
             }
             return array
         }
-    }
-
-    @ReactMethod
-    fun getStringName(text: String?): String {
-        val t = text
-        val str = "KOTLIN CALLING"
-
-        return str
     }
 
     override fun getName() = "RNPhotoEditorSDK"
