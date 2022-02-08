@@ -1,7 +1,7 @@
 {
   "name": "react-native-module-trtccalling",
   "title": "React Native module for trtccalling test",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "A React Native module for trtccalling",
   "main": "index.js",
   "typings": "index.d.ts",

@@ -114,10 +114,10 @@ function resolveStaticAssets(configuration) {
 }
 
 class TRTC {
-  static testToast(text) {
-    console.log('text:', text)
-    RNPhotoEditorSDK.toast(text)
-    console.log('xxx', RNPhotoEditorSDK.toast)
+  static testToast(message, duration) {
+    console.log('text:', message, duration)
+    RNPhotoEditorSDK.theShow(message, duration)
+    console.log('xxx', RNPhotoEditorSDK.theShow)
   }
   /**
    * Modally present a photo editor.

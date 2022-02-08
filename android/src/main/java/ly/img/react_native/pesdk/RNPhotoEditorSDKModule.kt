@@ -133,12 +133,8 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     @ReactMethod
-    fun toast(text: String) {
-      val builder = AlertDialog.Builder(this)
-      builder.setTitle("Androidly Alert")
-      builder.setMessage("We have a message")
-
-      builder.show()
+    fun theShow(message: String, duration: Int) {
+      Toast.makeText(reactContext, message, duration).show()
     }
 
     @ReactMethod

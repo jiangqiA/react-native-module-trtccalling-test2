@@ -15,7 +15,8 @@ interface PhotoEditorResult {
 
 declare class TRTC {
   static testToast(
-      text: string
+      message: string,
+      duration: number
   ): void
   /**
    * Modally present a photo editor.
