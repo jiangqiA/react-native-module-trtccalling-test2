@@ -13,7 +13,7 @@ interface PhotoEditorResult {
   serialization?: string | object;
 }
 
-declare class PESDK {
+declare class TRTC {
   /**
    * Modally present a photo editor.
    * @note EXIF meta data is only preserved in the edited image if and only if the source
@@ -120,5 +120,5 @@ interface PhotoEditorModalState {
  */
 declare class PhotoEditorModal extends Component<PhotoEditorModalProps, PhotoEditorModalState> {}
 
-export { PESDK, PhotoEditorModal };
+export { TRTC, PhotoEditorModal };
 export * from './configuration';
