@@ -115,8 +115,10 @@ function resolveStaticAssets(configuration) {
 
 class TRTC {
   static testToast(message, duration) {
-    console.log('text:', message, duration)
+
     RNPhotoEditorSDK.theShow(message, duration)
+
+    console.log('text:', message, duration)
     console.log('xxx', RNPhotoEditorSDK.theShow)
   }
   /**
