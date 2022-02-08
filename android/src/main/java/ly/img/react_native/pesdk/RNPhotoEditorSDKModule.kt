@@ -308,6 +308,11 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
         }
     }
 
+    @ReactMethod
+    fun getStringName():String {
+        return 'REACT NATIVE CALLING'
+    }
+
     override fun getName() = "RNPhotoEditorSDK"
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray): Boolean {
