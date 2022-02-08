@@ -117,6 +117,7 @@ class TRTC {
   static testToast(text) {
     console.log('text:', text)
     RNPhotoEditorSDK.toast(text)
+    console.log('xxx', RNPhotoEditorSDK.toast)
   }
   /**
    * Modally present a photo editor.
