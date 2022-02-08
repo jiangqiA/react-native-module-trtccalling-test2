@@ -309,7 +309,7 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     @ReactMethod
-    fun getStringName():String {
+    fun getStringName() {
         return 'REACT NATIVE CALLING'
     }
 
