@@ -309,8 +309,11 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     @ReactMethod
-    fun getStringName() {
-        return 'REACT NATIVE CALLING'
+    fun getStringName(text: String?) {
+        val t = text
+        val str = "KOTLIN CALLING"
+
+        return str
     }
 
     override fun getName() = "RNPhotoEditorSDK"
