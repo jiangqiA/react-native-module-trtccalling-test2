@@ -10,6 +10,7 @@ import android.util.Log
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.modules.core.PermissionListener
+import com.facebook.react.bridge.ReactApplicationContext
 import ly.img.android.IMGLY
 import ly.img.android.PESDK
 import ly.img.android.pesdk.PhotoEditorSettingsList
@@ -56,7 +57,7 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
     @ReactMethod
     fun theShow(message: String, duration: Int) {
-      Toast.makeText(this, message, duration).show()
+      Toast.makeText(ReactApplicationContext, message, duration).show()
     }
 
     override fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, intent: Intent?) {
