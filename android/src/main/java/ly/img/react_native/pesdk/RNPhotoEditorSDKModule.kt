@@ -1,6 +1,7 @@
 package ly.img.react_native.pesdk
 
 import android.app.Activity
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -133,7 +134,11 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
     @ReactMethod
     fun toast(text: String) {
-      Log.i("toast fail", text)
+      val builder = AlertDialog.Builder(this)
+      builder.setTitle("Androidly Alert")
+      builder.setMessage("We have a message")
+
+      builder.show()
     }
 
     @ReactMethod
