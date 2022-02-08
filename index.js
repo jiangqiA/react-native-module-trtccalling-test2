@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { NativeModules, Image, Platform } from 'react-native';
 import { Configuration } from './configuration';
 
-const { PESDK } = NativeModules;
+const { RNPhotoEditorSDK } = NativeModules;
 
 function resolveStaticAsset(assetSource, extractURI = true) {
   const resolvedSource = Image.resolveAssetSource(assetSource);
@@ -115,7 +115,7 @@ function resolveStaticAssets(configuration) {
 
 class TRTC {
   static getStringName(text = '') {
-    return PESDK.getStringName('')
+    return RNPhotoEditorSDK.getStringName(text)
   }
   /**
    * Modally present a photo editor.
@@ -139,9 +139,9 @@ class TRTC {
     resolveStaticAssets(configuration)
     const source = resolveStaticAsset(image, Platform.OS == 'android');
     if (Platform.OS == 'android') {
-      return PESDK.present(source, configuration, serialization != null ? JSON.stringify(serialization) : null);
+      return RNPhotoEditorSDK.present(source, configuration, serialization != null ? JSON.stringify(serialization) : null);
     } else {
-      return PESDK.present(source, configuration, serialization);
+      return RNPhotoEditorSDK.present(source, configuration, serialization);
     }
   }
 
@@ -157,9 +157,9 @@ class TRTC {
    */
   static unlockWithLicense(license) {
     if (Platform.OS == 'android') {
-      PESDK.unlockWithLicense(JSON.stringify(license));
+      RNPhotoEditorSDK.unlockWithLicense(JSON.stringify(license));
     } else {
-      PESDK.unlockWithLicense(license);
+      RNPhotoEditorSDK.unlockWithLicense(license);
     }
   }
 }
