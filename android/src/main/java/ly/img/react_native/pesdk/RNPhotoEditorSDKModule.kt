@@ -134,8 +134,7 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
     @ReactMethod
     fun msgToast(text: String?) {
-      var myToast = Toast(this)
-      myToast.makeText(this, text, myToast.LENGTH_SHORT).show();
+      Log.i("toast fail", text)
     }
 
     @ReactMethod
