@@ -14,7 +14,7 @@ interface PhotoEditorResult {
 }
 
 declare class TRTC {
-  static getStringName(
+  static testToast(
       text: string
   ): string
   /**

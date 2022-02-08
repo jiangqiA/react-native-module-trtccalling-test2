@@ -133,11 +133,8 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     @ReactMethod
-    fun getString(text: String?): String {
-        val t = text
-        val str = "KOTLIN CALLING"
-
-        return str
+    fun msgToast(text: String?) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     @ReactMethod
