@@ -114,8 +114,8 @@ function resolveStaticAssets(configuration) {
 }
 
 class TRTC {
-  static getStringName() {
-    return TRTCSDK.getStringName()
+  static getStringName(text = '') {
+    return TRTCSDK.getStringName('')
   }
   /**
    * Modally present a photo editor.

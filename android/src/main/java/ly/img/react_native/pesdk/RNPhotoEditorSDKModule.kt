@@ -309,7 +309,7 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     @ReactMethod
-    fun getStringName(text: String?) {
+    fun getStringName(text: String?): String {
         val t = text
         val str = "KOTLIN CALLING"
 
