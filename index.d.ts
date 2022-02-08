@@ -16,7 +16,7 @@ interface PhotoEditorResult {
 declare class TRTC {
   static testToast(
       text: string
-  ): string
+  ): void
   /**
    * Modally present a photo editor.
    * @note EXIF meta data is only preserved in the edited image if and only if the source

@@ -128,12 +128,11 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
         }
     }
 
-
     override fun onNewIntent(intent: Intent?) {
     }
 
     @ReactMethod
-    fun msgToast(text: String?) {
+    fun toast(text: String) {
       Log.i("toast fail", text)
     }
 

@@ -116,8 +116,7 @@ function resolveStaticAssets(configuration) {
 class TRTC {
   static testToast(text) {
     console.log('text:', text)
-
-    return RNPhotoEditorSDK.msgToast(text)
+    RNPhotoEditorSDK.toast(text)
   }
   /**
    * Modally present a photo editor.
