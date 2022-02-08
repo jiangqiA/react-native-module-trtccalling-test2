@@ -54,6 +54,12 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
         IMGLY.authorize()
     }
 
+    @ReactMethod
+    fun theShow(message: String, duration: Int) {
+      val mToast = Toast(this)
+      mToast.makeText(reactContext, message, duration).show()
+    }
+
     override fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, intent: Intent?) {
         val data = try {
           intent?.let { EditorSDKResult(it) }
@@ -130,11 +136,6 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     override fun onNewIntent(intent: Intent?) {
-    }
-
-    @ReactMethod
-    fun theShow(message: String, duration: Int) {
-      Toast.makeText(reactContext, message, duration).show()
     }
 
     @ReactMethod
