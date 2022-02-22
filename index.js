@@ -1,8 +1,8 @@
-import { Component } from 'react';
-import { NativeModules, Image, Platform } from 'react-native';
-import { Configuration } from './configuration';
+import {Component} from 'react';
+import {NativeModules, Image, Platform} from 'react-native';
+import {Configuration} from './configuration';
 
-const { RNPhotoEditorSDK } = NativeModules;
+const {RNPhotoEditorSDK} = NativeModules;
 
 function resolveStaticAsset(assetSource, extractURI = true) {
   const resolvedSource = Image.resolveAssetSource(assetSource);
@@ -15,7 +15,7 @@ function resolveStaticAsset(assetSource, extractURI = true) {
 
 function getNestedObject(nestedObject, pathArray) {
   return pathArray.reduce((obj, key) =>
-      (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObject);
+    (obj && obj[key] !== 'undefined') ? obj[key] : undefined, nestedObject);
 }
 
 function resolveNestedAsset(nestedObject, pathArray) {
@@ -114,13 +114,42 @@ function resolveStaticAssets(configuration) {
 }
 
 class TRTC {
-  static testToast(message, duration) {
+  // static testToast(message, duration) {
+  //
+  //   RNPhotoEditorSDK.theShow(message, duration)
+  //
+  //   console.log('text:', message, duration)
+  //   console.log('xxx', RNPhotoEditorSDK.theShow)
+  // }
 
-    RNPhotoEditorSDK.theShow(message, duration)
-
-    console.log('text:', message, duration)
-    console.log('xxx', RNPhotoEditorSDK.theShow)
+  static login(options) {
+    return RNPhotoEditorSDK.login(options);
   }
+
+  static logout() {
+    RNPhotoEditorSDK.logout();
+  }
+
+  static call(options) {
+    RNPhotoEditorSDK.call(options);
+  }
+
+  static accept() {
+    RNPhotoEditorSDK.accept();
+  }
+
+  static hangup() {
+    RNPhotoEditorSDK.hangup();
+  }
+
+  static reject() {
+    RNPhotoEditorSDK.reject();
+  }
+
+  static setHandsFree(isHandsFree) {
+    RNPhotoEditorSDK.setHandsFree(isHandsFree);
+  }
+
   /**
    * Modally present a photo editor.
    * @note EXIF meta data is only preserved in the edited image if and only if the source
@@ -174,8 +203,8 @@ class PhotoEditorModal extends Component {
   }
 
   static getDerivedStateFromProps = (props, state) => {
-    const { image, configuration, serialization, onExport, onCancel, onError } = props;
-    if (props.visible  && !state.visible) {
+    const {image, configuration, serialization, onExport, onCancel, onError} = props;
+    if (props.visible && !state.visible) {
       TRTC.openEditor(image, configuration, serialization).then(result => {
         if (result !== null) {
           onExport(result);
@@ -191,7 +220,7 @@ class PhotoEditorModal extends Component {
       });
     }
 
-    return ({ visible: props.visible })
+    return ({visible: props.visible})
   }
 
   render() {
@@ -199,5 +228,5 @@ class PhotoEditorModal extends Component {
   }
 }
 
-export { TRTC, PhotoEditorModal };
+export {TRTC, PhotoEditorModal};
 export * from './configuration';

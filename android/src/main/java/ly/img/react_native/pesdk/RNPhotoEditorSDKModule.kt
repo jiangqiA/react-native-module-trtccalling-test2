@@ -7,6 +7,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
+import java.util.List
+import java.util.Map
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.modules.core.PermissionListener
@@ -33,6 +35,42 @@ import ly.img.android.pesdk.backend.model.EditorSDKResult
 import ly.img.android.serializer._3.IMGLYFileReader
 import ly.img.android.serializer._3.IMGLYFileWriter
 
+import ly.img.react_native.pesdk.TRTCCalling
+import org.graalvm.compiler.hotspot.replacements.HotSpotReplacementsUtil.config
+
+import sun.net.ext.ExtendedSocketOptions.options
+import org.graalvm.compiler.hotspot.replacements.HotSpotReplacementsUtil.config
+import org.graalvm.compiler.hotspot.replacements.HotSpotReplacementsUtil.config
+
+import sun.net.ext.ExtendedSocketOptions.options
+import org.graalvm.compiler.hotspot.replacements.HotSpotReplacementsUtil.config
+
+import sun.net.ext.ExtendedSocketOptions.options
+import org.graalvm.compiler.hotspot.replacements.HotSpotReplacementsUtil.config
+
+import sun.net.ext.ExtendedSocketOptions.options
+import org.graalvm.compiler.hotspot.replacements.HotSpotReplacementsUtil.config
+
+import sun.net.ext.ExtendedSocketOptions.options
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), ActivityEventListener, PermissionListener {
 
     companion object {
@@ -42,12 +80,159 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
     init {
         reactContext.addActivityEventListener(this)
-
     }
 
     private var currentSettingsList: PhotoEditorSettingsList? = null
     private var currentPromise: Promise? = null
     private var currentConfig: Configuration? = null
+
+    @ReactMethod
+    fun login(options: ReadableMap, promise: Promise) {
+        val sdkAppId: Int = options.getInt("sdkAppId")
+        val userId: String = options.getString("userId")
+        val userSig: String = options.getString("userSig")
+        TRTCCalling.sharedInstance(reactContext).addDelegate(this)
+        TRTCCalling.sharedInstance(reactContext).login(sdkAppId, userId, userSig, object : ActionCallBack() {
+            fun onError(code: Int, msg: String?) {
+                promise.reject(code.toString() + "", msg)
+            }
+
+            fun onSuccess() {
+                promise.resolve("")
+            }
+        })
+    }
+
+    @ReactMethod
+    fun logout(promise: Promise) {
+        TRTCCalling.sharedInstance(reactContext).logout(object : ActionCallBack() {
+            fun onError(code: Int, msg: String?) {
+                promise.reject(code.toString() + "", msg)
+            }
+
+            fun onSuccess() {
+                promise.resolve("")
+            }
+        })
+    }
+
+    // 呼叫他人
+    @ReactMethod
+    fun call(options: ReadableMap) {
+        val userId: String = options.getString("userId")
+        val callType: Int = options.getInt("callType")
+        TRTCCalling.sharedInstance(reactContext).call(userId, callType)
+    }
+
+    // 接听来电回调
+    @ReactMethod
+    fun accept() {
+        TRTCCalling.sharedInstance(reactContext).accept()
+    }
+
+    // 结束通话 挂断
+    @ReactMethod
+    fun hangup() {
+        TRTCCalling.sharedInstance(reactContext).hangup()
+    }
+
+    // 拒绝来电回调
+    @ReactMethod
+    fun reject() {
+        TRTCCalling.sharedInstance(reactContext).reject()
+    }
+
+    // 是否开免提
+    @ReactMethod
+    fun setHandsFree(isHandsFree: Boolean) {
+        TRTCCalling.sharedInstance(reactContext).setHandsFree(isHandsFree)
+    }
+
+    override fun onError(code: Int, msg: String?) {
+        val map: WritableMap = Arguments.createMap()
+        map.putInt("code", code)
+        map.putString("message", msg)
+        sendEvent(reactContext, "onError", map)
+    }
+
+    override fun onInvited(sponsor: String?, userIdList: List<String?>?, isFromGroup: Boolean, callType: Int) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("sponsor", sponsor)
+        //    map.putArray("userIdList", Arguments.fromArray(userIdList));
+        map.putBoolean("isFromGroup", isFromGroup)
+        map.putInt("callType", callType)
+        sendEvent(reactContext, "onInvited", map)
+    }
+
+    override fun onGroupCallInviteeListUpdate(userIdList: List<String?>?) {
+        val map: WritableMap = Arguments.createMap()
+        map.putArray("userIds", Arguments.fromArray(userIdList))
+        sendEvent(reactContext, "onGroupCallInviteeListUpdate", map)
+    }
+
+    override fun onUserEnter(userId: String?) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("uid", userId)
+        sendEvent(reactContext, "onUserEnter", map)
+    }
+
+    override fun onUserLeave(userId: String?) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("uid", userId)
+        sendEvent(reactContext, "onUserLeave", map)
+    }
+
+    override fun onReject(userId: String?) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("uid", userId)
+        sendEvent(reactContext, "onReject", map)
+    }
+
+    override fun onNoResp(userId: String?) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("uid", userId)
+        sendEvent(reactContext, "onNoResp", map)
+    }
+
+    override fun onLineBusy(userId: String?) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("uid", userId)
+        sendEvent(reactContext, "onLineBusy", map)
+    }
+
+    override fun onCallingCancel() {
+        val map: WritableMap = Arguments.createMap()
+        sendEvent(reactContext, "onCallingCancel", map)
+    }
+
+    override fun onCallingTimeout() {
+        val map: WritableMap = Arguments.createMap()
+        sendEvent(reactContext, "onCallingTimeout", map)
+    }
+
+    override fun onCallEnd() {
+        val map: WritableMap = Arguments.createMap()
+        sendEvent(reactContext, "onCallEnd", map)
+    }
+
+    override fun onUserVideoAvailable(userId: String?, isVideoAvailable: Boolean) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("uid", userId)
+        map.putBoolean("available", isVideoAvailable)
+        sendEvent(reactContext, "onUserVideoAvailable", map)
+    }
+
+    override fun onUserAudioAvailable(userId: String?, isVideoAvailable: Boolean) {
+        val map: WritableMap = Arguments.createMap()
+        map.putString("uid", userId)
+        map.putBoolean("available", isVideoAvailable)
+        sendEvent(reactContext, "onUserAudioAvailable", map)
+    }
+
+    override fun onUserVoiceVolume(volumeMap: Map<String?, Int?>?) {
+        val map: WritableMap = Arguments.createMap()
+        sendEvent(reactContext, "onUserVoiceVolume", map)
+    }
 
     @ReactMethod
     fun unlockWithLicense(license: String) {
@@ -57,14 +242,14 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
     @ReactMethod
     fun theShow(message: String, duration: Int) {
-      Toast.makeText(ReactApplicationContext, message, duration).show()
+        Toast.makeText(ReactApplicationContext, message, duration).show()
     }
 
     override fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, intent: Intent?) {
         val data = try {
-          intent?.let { EditorSDKResult(it) }
+            intent?.let { EditorSDKResult(it) }
         } catch (e: EditorSDKResult.NotAnImglyResultException) {
-          null
+            null
         } ?: return // If data is null the result is not from us.
 
         when (requestCode) {
@@ -91,7 +276,8 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
                                             SerializationExportType.FILE_URL -> {
                                                 val uri = serializationConfig.filename?.let {
                                                     Uri.parse(it)
-                                                } ?: Uri.fromFile(File.createTempFile("serialization", ".json"))
+                                                }
+                                                        ?: Uri.fromFile(File.createTempFile("serialization", ".json"))
                                                 Encoder.createOutputStream(uri).use { outputStream ->
                                                     IMGLYFileWriter(settingsList).writeJson(outputStream)
                                                 }
@@ -99,9 +285,9 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
                                             }
                                             SerializationExportType.OBJECT -> {
                                                 ReactJSON.convertJsonToMap(
-                                                  JSONObject(
-                                                          IMGLYFileWriter(settingsList).writeJsonAsString()
-                                                  )
+                                                        JSONObject(
+                                                                IMGLYFileWriter(settingsList).writeJsonAsString()
+                                                        )
                                                 )
                                             }
                                         }
@@ -115,18 +301,18 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
                             }
 
                             currentPromise?.resolve(
-                              reactMap(
-                                "image" to when (currentConfig?.export?.image?.exportType) {
-                                    ImageExportType.DATA_URL -> resultPath?.let {
-                                        val imageSource = ImageSource.create(it)
-                                        "data:${imageSource.imageFormat.mimeType};base64,${imageSource.asBase64}"
-                                    }
-                                    ImageExportType.FILE_URL -> resultPath?.toString()
-                                    else -> resultPath?.toString()
-                                },
-                                "hasChanges" to (sourcePath?.path != resultPath?.path),
-                                "serialization" to serialization
-                              )
+                                    reactMap(
+                                            "image" to when (currentConfig?.export?.image?.exportType) {
+                                                ImageExportType.DATA_URL -> resultPath?.let {
+                                                    val imageSource = ImageSource.create(it)
+                                                    "data:${imageSource.imageFormat.mimeType};base64,${imageSource.asBase64}"
+                                                }
+                                                ImageExportType.FILE_URL -> resultPath?.toString()
+                                                else -> resultPath?.toString()
+                                            },
+                                            "hasChanges" to (sourcePath?.path != resultPath?.path),
+                                            "serialization" to serialization
+                                    )
                             )
                         }()
                     }
@@ -200,7 +386,8 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
     }
 
     private fun startEditor(settingsList: PhotoEditorSettingsList?) {
-        val currentActivity = this.currentActivity ?: throw RuntimeException("Can't start the Editor because there is no current activity")
+        val currentActivity = this.currentActivity
+                ?: throw RuntimeException("Can't start the Editor because there is no current activity")
         if (settingsList != null) {
             (currentActivity as? PermissionAwareActivity)?.also {
                 for (permission in PermissionRequest.NEEDED_EDITOR_PERMISSIONS) {
@@ -211,8 +398,8 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
             }
             MainThreadRunnable {
                 PhotoEditorBuilder(currentActivity)
-                  .setSettingsList(settingsList)
-                  .startActivityForResult(currentActivity, EDITOR_RESULT_ID)
+                        .setSettingsList(settingsList)
+                        .startActivityForResult(currentActivity, EDITOR_RESULT_ID)
             }()
         }
     }
@@ -251,7 +438,8 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
 
 
     object ReactJSON {
-        @Throws(JSONException::class) fun convertJsonToMap(jsonObject: JSONObject): WritableMap? {
+        @Throws(JSONException::class)
+        fun convertJsonToMap(jsonObject: JSONObject): WritableMap? {
             val map: WritableMap = WritableNativeMap()
             val iterator: Iterator<String> = jsonObject.keys()
             while (iterator.hasNext()) {
@@ -284,7 +472,8 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
             return map
         }
 
-        @Throws(JSONException::class) fun convertJsonToArray(jsonArray: JSONArray): WritableArray? {
+        @Throws(JSONException::class)
+        fun convertJsonToArray(jsonArray: JSONArray): WritableArray? {
             val array: WritableArray = WritableNativeArray()
             for (i in 0 until jsonArray.length()) {
                 when (val value: Any = jsonArray.get(i)) {
@@ -322,5 +511,6 @@ class RNPhotoEditorSDKModule(val reactContext: ReactApplicationContext) : ReactC
         startEditor(currentSettingsList)
         return false
     }
+
 
 }
