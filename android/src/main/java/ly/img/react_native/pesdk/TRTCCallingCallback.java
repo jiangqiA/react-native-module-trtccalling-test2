@@ -1,4 +1,4 @@
-package com.tencent.liteav.trtccalling.model;
+package ly.img.react_native.pesdk;
 
 public class TRTCCallingCallback {
     /**

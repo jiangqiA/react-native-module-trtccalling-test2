@@ -1,4 +1,4 @@
-package com.tencent.liteav.trtccalling.model.impl;
+package ly.img.react_native.pesdk.impl;
 
 import android.content.Context;
 import android.hardware.Sensor;
